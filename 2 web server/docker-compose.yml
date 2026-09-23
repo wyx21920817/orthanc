@@ -1,0 +1,54 @@
+version: '3'
+
+networks:
+  aiclinic-net:
+    external: true
+    name: aiclinic-net
+
+services:
+  webserver:
+    platform: linux/amd64
+    image: balalabalala/aiclinic-webserver:latest
+    container_name: webserver
+    ports:
+      - "18000:18000"
+    environment:
+      - PORT=18000
+      - MONGODB_URI=mongodb://mongodb:27017/aiclinic
+      - AISERVER_URI=http://ai_server:8000
+      - ORTHANC_SERVER_URL=http://orthanc:8042
+      - AUTH_SERVER_URL=http://webserverauth:18001
+      - WEBSERVER_URI=http://localhost:18000
+    volumes:
+      - ./uploads:/app/uploads
+      - ./logs:/app/logs
+      - ./dicom_files:/app/dicom_files
+      - ./waveform_results:/app/waveform_results
+    extra_hosts:
+      - "localhost:host-gateway"
+    restart: unless-stopped
+    networks:
+      - aiclinic-net
+
+  webserverauth:
+    platform: linux/amd64
+    image: balalabalala/aiclinic-webserver:latest
+    container_name: webserverauth
+    ports:
+      - "18001:18001"
+    environment:
+      - PORT=18001
+      - MONGODB_URI=mongodb://mongodb:27017/aiclinic
+      - AISERVER_URI=http://ai_server:8000
+      - ORTHANC_SERVER_URL=http://orthanc:8042
+      - AUTH_SERVER_URL=http://webserverauth:18001
+    volumes:
+      - ./uploads:/app/uploads
+      - ./logs:/app/logs
+      - ./dicom_files:/app/dicom_files
+      - ./waveform_results:/app/waveform_results
+    extra_hosts:
+      - "localhost:host-gateway"
+    restart: unless-stopped
+    networks:
+      - aiclinic-net

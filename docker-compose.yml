@@ -1,0 +1,46 @@
+services:
+  orthanc:
+    container_name: orthanc
+    image: orthancteam/orthanc:latest-full
+    networks:
+      - aiclinic-net
+    ports:
+      - "8042:8042"  # Web interface and REST API
+      - "4242:4242"  # DICOM port
+    volumes:
+      - orthanc_db:/var/lib/orthanc/db
+      #- ./plugins:/usr/share/orthanc/plugins
+      - ./orthanc config json/orthanc.json:/etc/orthanc/orthanc.json:ro
+      - ./orthanc config json/authorization.json:/etc/orthanc/authorization.json:ro
+      - ./orthanc config json/credentials.json:/etc/orthanc/credentials.json:ro
+      - ./orthanc config json/dicomweb.json:/etc/orthanc/dicomweb.json:ro
+      - ./orthanc config json/serve-folders.json:/etc/orthanc/serve-folders.json:ro
+      - ./orthanc config json/worklists.json:/etc/orthanc/worklists.json:ro
+      - ./orthanc config json/postgresql.json:/etc/orthanc/postgresql.json:ro
+      - ./orthanc config json/webviewer.json:/etc/orthanc/webviewer.json:ro
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8042/system"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+      
+  mongodb:
+    container_name: mongodb
+    image: mongo:latest
+    networks:
+      - aiclinic-net
+    ports:
+      - "37017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    restart: unless-stopped
+
+volumes:
+  orthanc_db:
+  mongodb_data:
+
+networks:
+  aiclinic-net:
+    name: aiclinic-net

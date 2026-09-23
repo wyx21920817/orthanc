@@ -1,0 +1,9 @@
+{
+  "PostgreSQL" : {
+    "EnableIndex" : false,
+    "EnableStorage" : false,
+    "ConnectionUri" : "postgresql://username:password@localhost/orthanc",
+    "MaximumConnectionsCount" : 5,
+    "ConnectionsCount" : 1
+  }
+}

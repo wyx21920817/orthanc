@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  aiagent:
+    platform: linux/amd64
+    image: balalabalala/aiagent:1.0.0
+    container_name: aiagent
+    restart: unless-stopped
+    ports:
+      - "18888:8888"
+    environment:
+      - MONGODB_URI=mongodb://mongodb:27017/aiclinic
+      - ORTHANC_SERVER_URL=http://orthanc:8042
+      - AUTH_SERVER_URL=http://webserverauth:18001
+      - AIAGENT_URL=http://localhost:18888
+      - AISERVER_URI=http://localhost:10000
+    volumes:
+      - ./logs:/app/logs
+      - ./reports:/app/reports
+    extra_hosts:
+      - "localhost:host-gateway"
+    networks:
+      - aiclinic-net
+
+networks:
+  aiclinic-net:
+    external: true

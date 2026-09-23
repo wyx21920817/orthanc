@@ -1,0 +1,61 @@
+{
+  "Authorization": {
+    "Enabled": true,
+    "WebServiceTokenValidationUrl": "http://webserverauth:18001/api/auth/verify-token",
+    "TokenHttpHeaders": ["Authorization"],
+    "HttpTimeout": 30,
+    "Labels": {
+      "all": {
+        "ReadPatient": true,
+        "ReadStudy": true,
+        "ReadSeries": true,
+        "ReadInstance": true,
+        "ModifyPatient": true,
+        "ModifyStudy": true,
+        "ModifySeries": true,
+        "ModifyInstance": true,
+        "PutInstance": true,
+        "DeletePatient": true,
+        "DeleteStudy": true,
+        "DeleteSeries": true,
+        "DeleteInstance": true,
+        "CreatePatient": true,
+        "CreateStudy": true,
+        "CreateSeries": true,
+        "CreateInstance": true,
+        "Find": true
+      },
+      "view": {
+        "ReadPatient": true,
+        "ReadStudy": true,
+        "ReadSeries": true,
+        "ReadInstance": true,
+        "Find": true
+      },
+      "modify": {
+        "ModifyPatient": true,
+        "ModifyStudy": true,
+        "ModifySeries": true,
+        "ModifyInstance": true,
+        "DeletePatient": true,
+        "DeleteStudy": true,
+        "DeleteSeries": true,
+        "DeleteInstance": true
+      },
+        "upload": {
+         "PutInstance": true,
+         "CreatePatient": true,
+         "CreateStudy": true,
+        "CreateSeries": true,
+        "CreateInstance": true,
+        "ModifyPatient": true,
+        "ModifyStudy": true,
+        "ModifySeries": true,
+        "ModifyInstance": true
+        }
+
+
+
+    }
+  }
+}

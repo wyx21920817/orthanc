@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  web:
+    platform: linux/amd64
+    image: balalabalala/aiclinic-web:1.0.1
+    container_name: aiclinic-web
+    ports:
+      - "3000:80"
+    environment:
+      - REACT_APP_API_BASE_URL=http://localhost:18000
+      - REACT_APP_CHAT_API_URL=http://localhost:18888
+    restart: unless-stopped

@@ -1,0 +1,8 @@
+{
+  "WebViewer" : {
+    "Enable" : true,
+    "DecodingThreads" : 4,
+    "CachePath" : "/tmp/OrthancWebViewerCache",
+    "CacheSize" : 100
+  }
+}
